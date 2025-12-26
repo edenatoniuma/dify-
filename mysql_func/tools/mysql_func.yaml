@@ -1,0 +1,123 @@
+identity:
+  name: "mysql_func"
+  author: "gybe"
+  label:
+    en_US: "mysql_func"
+    zh_Hans: "mysql_func"
+    pt_BR: "mysql_func"
+    ja_JP: "mysql_func"
+description:
+  human:
+    en_US: "获取mysql对应表的内容以及查询"
+    zh_Hans: "获取mysql对应表的内容以及查询"
+    pt_BR: "获取mysql对应表的内容以及查询"
+    ja_JP: "获取mysql对应表的内容以及查询"
+  llm: "该工具用于 连接 MySQL 数据库并执行 SQL 查询语句。
+        当需要从指定的 MySQL 数据库中获取数据（例如：查询数据、读取表内容、执行 SELECT 语句等）时，应调用此工具。
+        不要在需要修改数据（INSERT、UPDATE、DELETE）或执行 DDL（CREATE、DROP）时使用该工具 —— 本工具的输出依赖于 cursor.fetchall()，适用于可返回结果集的查询语句。
+        工具要求提供完整的数据库连接参数：
+        host: 数据库主机
+        port: 端口号
+        user: 用户名
+        password: 密码
+        database: 数据库名称
+        execute_sql: 要执行的 SQL 查询（必须是可返回查询结果的 SQL）
+        工具返回 SQL 执行结果的 JSON 数组。"
+parameters:
+  - name: host
+    type: string
+    required: true
+    label:
+      en_US: Host
+      zh_Hans: 数据库主机
+      pt_BR: Host
+      ja_JP: ホスト
+    human_description:
+      en_US: "The hostname or IP address of the MySQL server."
+      zh_Hans: "MySQL 数据库的主机名或 IP 地址。"
+      pt_BR: "O nome do host ou endereço IP do servidor MySQL."
+      ja_JP: "MySQL サーバーのホスト名または IP アドレス。"
+    llm_description: "连接 MySQL 数据库所需的主机地址。"
+    form: form # 参数表单类型 ('llm' 或 'form')
+
+  - name: port
+    type: number
+    required: true
+    label:
+      en_US: Port
+      zh_Hans: 端口号
+      pt_BR: Porta
+      ja_JP: ポート
+    human_description:
+      en_US: "The port number of the MySQL server."
+      zh_Hans: "MySQL 数据库的端口号。"
+      pt_BR: "O número da porta do servidor MySQL."
+      ja_JP: "MySQL サーバーのポート番号。"
+    llm_description: "连接 MySQL 数据库所需的端口号，例如 3306。"
+    form: form # 参数表单类型 ('llm' 或 'form')
+
+  - name: user
+    type: string
+    required: true
+    label:
+      en_US: User
+      zh_Hans: 用户名
+      pt_BR: Usuário
+      ja_JP: ユーザー
+    human_description:
+      en_US: "The username used to authenticate with the MySQL server."
+      zh_Hans: "用于连接 MySQL 的用户名。"
+      pt_BR: "O nome de usuário usado para autenticar no servidor MySQL."
+      ja_JP: "MySQL サーバーに接続するためのユーザー名。"
+    llm_description: "用于 MySQL 数据库身份验证的用户名。"
+    form: form # 参数表单类型 ('llm' 或 'form')
+
+  - name: password
+    type: string
+    required: true
+    label:
+      en_US: Password
+      zh_Hans: 密码
+      pt_BR: Senha
+      ja_JP: パスワード
+    human_description:
+      en_US: "The password used to authenticate with the MySQL server."
+      zh_Hans: "用于连接 MySQL 的密码。"
+      pt_BR: "A senha usada para autenticação no servidor MySQL."
+      ja_JP: "MySQL サーバーに接続するためのパスワード。"
+    llm_description: "用于 MySQL 数据库身份验证的密码。"
+    form: form # 参数表单类型 ('llm' 或 'form')
+
+  - name: database
+    type: string
+    required: true
+    label:
+      en_US: Database
+      zh_Hans: 数据库名称
+      pt_BR: Banco de dados
+      ja_JP: データベース
+    human_description:
+      en_US: "The name of the database to connect to."
+      zh_Hans: "要连接的数据库名称。"
+      pt_BR: "O nome do banco de dados ao qual se conectar."
+      ja_JP: "接続するデータベース名。"
+    llm_description: "要操作的 MySQL 数据库名称。"
+    form: form # 参数表单类型 ('llm' 或 'form')
+  - name: execute_sql
+    type: string
+    required: true
+    label:
+      en_US: execute_sql
+      zh_Hans: 查询语句
+      pt_BR: Consulta SQL
+      ja_JP: クエリ
+    human_description:
+      en_US: "SQL query to execute. Should be a SELECT or other read-only query that returns rows."
+      zh_Hans: "要执行的 SQL 查询语句，应为 SELECT 或其他可返回结果集的查询。"
+      pt_BR: "Consulta SQL a ser executada. Deve ser SELECT ou outra consulta que retorne resultados."
+      ja_JP: "実行する SQL クエリ。SELECT など結果を返す読み取り専用クエリである必要があります。"
+    llm_description: "执行 MySQL 查询的 SQL 语句。必须为可返回结果集的查询（如 SELECT），不要用于 INSERT、UPDATE、DELETE 或 DDL。"
+    form: llm
+extra:
+  python:
+    source: tools/mysql_func.py
