@@ -1,0 +1,118 @@
+identity:
+  name: "weaviate_query_func"
+  author: "fuchaojun"
+  label:
+    en_US: "weaviate_query_func"
+    zh_Hans: "weaviate_query_func"
+    pt_BR: "weaviate_query_func"
+    ja_JP: "weaviate_query_func"
+description:
+  human:
+    en_US: "在指定集合中，按 doc_name 过滤，对 query_text 进行向量 + 关键词混合检索，并对结果进行 rerank 后返回相关段落。"
+    zh_Hans: "在指定集合中，按 doc_name 过滤，对 query_text 进行向量 + 关键词混合检索，并对结果进行 rerank 后返回相关段落。"
+    pt_BR: "在指定集合中，按 doc_name 过滤，对 query_text 进行向量 + 关键词混合检索，并对结果进行 rerank 后返回相关段落。"
+    ja_JP: "在指定集合中，按 doc_name 过滤，对 query_text 进行向量 + 关键词混合检索，并对结果进行 rerank 后返回相关段落。"
+  llm: >
+    一个用于检索预配置 Weaviate 知识库的工具，
+    可以根据自然语言查询搜索相关内容。
+    工具会执行混合检索（语义向量 + 关键词）并对结果进行 rerank，
+    返回最相关的文本段落。
+    当用户提出需要从已索引文档中查找信息的问题时使用。
+    LLM 仅需提供 query_text，其余检索参数和过滤条件由系统自动处理。
+parameters:
+  - name: query_text
+    type: string
+    required: true
+    label:
+      en_US: Query text
+      zh_Hans: 查询文本
+      pt_BR: Texto da consulta
+      ja_JP: 検索クエリ
+    human_description:
+      en_US: "用于检索的自然语言查询内容。"
+      zh_Hans: "用于检索的自然语言查询内容。"
+      pt_BR: "Texto em linguagem natural usado para a busca."
+      ja_JP: "検索に使用する自然言語のクエリ。"
+    llm_description: >
+      用于语义和关键词混合检索的查询文本，
+      同时作为 rerank 阶段的相关性判断依据。
+    form: llm
+
+  - name: collection_name
+    type: string
+    required: true
+    label:
+      en_US: Collection name
+      zh_Hans: 集合名称
+      pt_BR: Nome da coleção
+      ja_JP: コレクション名
+    human_description:
+      en_US: "Weaviate 中用于检索的集合名称。"
+      zh_Hans: "Weaviate 中用于检索的集合名称。"
+      pt_BR: "Nome da coleção no Weaviate usada para a busca."
+      ja_JP: "検索対象となる Weaviate のコレクション名。"
+    llm_description: >
+      Weaviate 中的集合名称，
+      所有向量与元数据检索都在该集合中进行。
+    form: form
+
+  - name: top_k
+    type: number
+    required: true
+    label:
+      en_US: Retrieval count
+      zh_Hans: 初始召回数量
+      pt_BR: Quantidade de recuperação
+      ja_JP: 初期取得件数
+    human_description:
+      en_US: "混合检索阶段返回的候选结果数量。"
+      zh_Hans: "混合检索阶段返回的候选结果数量。"
+      pt_BR: "Número de resultados retornados na busca inicial."
+      ja_JP: "ハイブリッド検索で取得する候補数。"
+    llm_description: >
+      混合检索阶段返回的候选文档数量，
+      通常应大于 rerank_top_k，用于提供足够的 rerank 输入。
+    form: form
+
+  - name: rerank_top_k
+    type: number
+    required: true
+    label:
+      en_US: Rerank result count
+      zh_Hans: 重排后返回数量
+      pt_BR: Quantidade após rerank
+      ja_JP: リランキング結果数
+    human_description:
+      en_US: "rerank 后最终返回的结果数量。"
+      zh_Hans: "rerank 后最终返回的结果数量。"
+      pt_BR: "Número final de resultados após o rerank."
+      ja_JP: "リランキング後に返される結果数。"
+    llm_description: >
+      rerank 阶段最终返回的最相关结果数量。
+      当小于 top_k 时，会触发 rerank 逻辑。
+    form: form
+
+  - name: doc_name
+    type: string
+    required: false
+    label:
+      en_US: Document name
+      zh_Hans: 文档名称
+      pt_BR: Nome do documento
+      ja_JP: ドキュメント名
+    human_description:
+      en_US: "用于限定检索范围的文档名称（可选）。"
+      zh_Hans: "用于限定检索范围的文档名称（可选）。"
+      pt_BR: "Nome do documento usado para filtrar a busca (opcional)."
+      ja_JP: "検索範囲を限定するためのドキュメント名（任意）。"
+    llm_description: >
+      可选参数。
+      若提供，则仅在 doc_name 等于该值的文档片段中进行检索；
+      若为空，则在整个集合中检索。
+    form: form
+
+
+
+extra:
+  python:
+    source: tools/weaviate_query_func.py

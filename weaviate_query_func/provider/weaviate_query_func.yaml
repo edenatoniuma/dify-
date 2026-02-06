@@ -1,0 +1,62 @@
+identity:
+  author: "fuchaojun"
+  name: "weaviate_query_func"
+  label:
+    en_US: "weaviate_query_func"
+    zh_Hans: "weaviate_query_func"
+    pt_BR: "weaviate_query_func"
+    ja_JP: "weaviate_query_func"
+  description:
+    en_US: "指定doc_name到向量数据库里面混合检索对应的段落，进行rerank处理后返回"
+    zh_Hans: "指定doc_name到向量数据库里面混合检索对应的段落，进行rerank处理后返回"
+    pt_BR: "指定doc_name到向量数据库里面混合检索对应的段落，进行rerank处理后返回"
+    ja_JP: "指定doc_name到向量数据库里面混合检索对应的段落，进行rerank处理后返回"
+  icon: "icon.svg"
+
+#########################################################################################
+# If you want to support OAuth, you can uncomment the following code.
+#########################################################################################
+# oauth_schema:
+#   client_schema:
+#     - name: "client_id"
+#       type: "secret-input"
+#       required: true
+#       url: https://example.com/oauth/authorize
+#       placeholder:
+#         en_US: "Please input your Client ID"
+#         zh_Hans: "请输入你的 Client ID"
+#         pt_BR: "Insira seu Client ID"
+#       help:
+#         en_US: "Client ID is used to authenticate requests to the example.com API."
+#         zh_Hans: "Client ID 用于认证请求到 example.com API。"
+#         pt_BR: "Client ID é usado para autenticar solicitações à API do example.com."
+#       label:
+#         zh_Hans: "Client ID"
+#         en_US: "Client ID"
+#     - name: "client_secret"
+#       type: "secret-input"
+#       required: true
+#       url: https://example.com/oauth/authorize
+#       placeholder:
+#         en_US: "Please input your Client Secret"
+#         zh_Hans: "请输入你的 Client Secret"
+#         pt_BR: "Insira seu Client Secret"
+#       help:
+#         en_US: "Client Secret is used to authenticate requests to the example.com API."
+#         zh_Hans: "Client Secret 用于认证请求到 example.com API。"
+#         pt_BR: "Client Secret é usado para autenticar solicitações à API do example.com."
+#       label:
+#         zh_Hans: "Client Secret"
+#         en_US: "Client Secret"
+#   credentials_schema:
+#     - name: "access_token"
+#       type: "secret-input"
+#       label:
+#         zh_Hans: "Access Token"
+#         en_US: "Access Token"
+
+tools:
+  - tools/weaviate_query_func.yaml
+extra:
+  python:
+    source: provider/weaviate_query_func.py

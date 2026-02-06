@@ -1,2 +1,4 @@
 dify_plugin>=0.4.0,<0.7.0
 pymysql==1.1.2
+weaviate-client==4.19.2
+openai==2.7.1
